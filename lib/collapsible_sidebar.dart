@@ -1,5 +1,6 @@
 library collapsible_sidebar;
 
+import 'dart:ffi';
 import 'dart:math' as math show pi;
 
 import 'package:collapsible_sidebar/collapsible_sidebar/collapsible_avatar.dart';
@@ -22,6 +23,7 @@ class CollapsibleSidebar extends StatefulWidget {
     this.textStyle,
     this.toggleTitleStyle,
     this.toggleTitle = 'Collapse',
+    this.children = const <Widget>[],
     this.avatarImg,
     this.height = double.infinity,
     this.minWidth = 80,
@@ -63,6 +65,7 @@ class CollapsibleSidebar extends StatefulWidget {
   final avatarImg;
   final bool showToggleButton, fitItemsToBottom, isCollapsed;
   final List<CollapsibleItem> items;
+  final List<Widget> children;
   final double height,
       minWidth,
       maxWidth,
@@ -206,7 +209,7 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _avatar,
+                  ...widget.children,
                   SizedBox(
                     height: widget.topPadding,
                   ),
@@ -248,6 +251,7 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
                       : SizedBox(
                           height: widget.iconSize,
                         ),
+                  _avatar,
                 ],
               ),
             ),
