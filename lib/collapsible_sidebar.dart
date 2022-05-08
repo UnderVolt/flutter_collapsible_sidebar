@@ -48,6 +48,7 @@ class CollapsibleSidebar extends StatefulWidget {
     required this.body,
     this.onTitleTap,
     this.isCollapsed = true,
+    this.forceExpanded = false,
     this.sidebarBoxShadow = const [BoxShadow(
       color: Colors.blue,
       blurRadius: 10,
@@ -63,7 +64,7 @@ class CollapsibleSidebar extends StatefulWidget {
   final IconData titleBackIcon;
   final Widget body;
   final avatarImg;
-  final bool showToggleButton, fitItemsToBottom, isCollapsed;
+  final bool showToggleButton, fitItemsToBottom, isCollapsed, forceExpanded;
   final List<CollapsibleItem> items;
   final List<Widget> children;
   final double height,
@@ -139,6 +140,11 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
       curve: widget.curve,
     );
 
+    if(widget.forceExpanded){
+      _currWidth = widget.maxWidth;
+      return;
+    }
+
     _controller.addListener(() {
       _currWidth = _widthAnimation.value;
       if (_controller.isCompleted) _isCollapsed = _currWidth == widget.minWidth;
@@ -160,7 +166,7 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
   }
 
   void _onHorizontalDragUpdate(DragUpdateDetails details) {
-    if (details.primaryDelta != null) {
+    if (details.primaryDelta != null && !widget.forceExpanded) {
       _currWidth += details.primaryDelta!;
       if (_currWidth > tempWidth)
         _currWidth = tempWidth;
@@ -172,6 +178,8 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
   }
 
   void _onHorizontalDragEnd(DragEndDetails _) {
+    if(!widget.forceExpanded) return;
+
     if (_currWidth == tempWidth)
       setState(() => _isCollapsed = false);
     else if (_currWidth == widget.minWidth)
