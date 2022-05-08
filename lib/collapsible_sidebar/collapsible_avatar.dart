@@ -5,11 +5,13 @@ class CollapsibleAvatar extends StatelessWidget {
     required this.avatarSize,
     required this.backgroundColor,
     required this.name,
+    this.borderRadius = 20,
     this.avatarImg,
     required this.textStyle,
   });
 
   final double avatarSize;
+  final double borderRadius;
   final Color backgroundColor;
   final String name;
   final avatarImg;
@@ -30,7 +32,7 @@ class CollapsibleAvatar extends StatelessWidget {
 
   Widget get _avatar {
     return ClipRRect(
-        borderRadius: BorderRadius.circular(avatarSize),
+        borderRadius: BorderRadius.circular(this.borderRadius),
         child: Image(
           image: avatarImg,
           fit: BoxFit.fill,

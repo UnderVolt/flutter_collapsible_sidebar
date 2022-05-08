@@ -27,6 +27,7 @@ class CollapsibleSidebar extends StatefulWidget {
     this.minWidth = 80,
     this.maxWidth = 270,
     this.borderRadius = 15,
+    this.avatarBorderRadius = 20,
     this.iconSize = 40,
     this.toggleButtonIcon = Icons.chevron_right,
     this.backgroundColor = const Color(0xff2B3138),
@@ -66,6 +67,7 @@ class CollapsibleSidebar extends StatefulWidget {
       minWidth,
       maxWidth,
       borderRadius,
+      avatarBorderRadius,
       iconSize,
       padding = 10,
       itemPadding = 10,
@@ -270,6 +272,7 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
           : CollapsibleAvatar(
               backgroundColor: widget.unselectedIconColor,
               avatarSize: widget.iconSize,
+              borderRadius: widget.avatarBorderRadius,
               name: widget.title,
               avatarImg: widget.avatarImg,
               textStyle: _textStyle(widget.backgroundColor, widget.titleStyle),
